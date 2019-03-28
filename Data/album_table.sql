@@ -1,0 +1,15 @@
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("OK Computer", 1997, 12, 1000, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("The Bends", 1995, 12, 1000, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("The Dark Side of the Moon", 1973, 10, 1001, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("The Wall", 1979, 13, 1001, "English" );	
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Nevermind", 1991, 12, 1002, "English" );	
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("In Utero", 1993, 12, 1002, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Until One", 2010, 23, 1003, "English" );	
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Until Now", 2012, 10, 1003, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Aalas Ka Pedh", 2012, 9, 1004, "Hindi" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Vaaqif", 2018, 8, 1004, "Hindi" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("One More Light", 2017, 10, 1005, "English");
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Hybtrid Theory", 2000, 12, 1005, "English");
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Side A", 2016, 6, 1006, "Hindi" );	
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Side B", 2017, 6, 1006, "Hindi" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("The Heist", 2012, 15, 1007, "English" );
