@@ -20,4 +20,4 @@ Create Table favourites(user_id int not null, song_id int, constraint fk6 foreig
 Create Table playlist(user_id int , song_id int ,constraint fk10 foreign key (song_id) references song(song_id) on delete cascade, constraint fk11 foreign key (user_id) references user1(user_id) on delete cascade);
 
 Create Table user_history( user_id int, song_id int ,constraint fk12 foreign key (song_id) references song(song_id) on delete cascade, constraint fk13 foreign key (user_id) references user1(user_id) on delete cascade);
-/*Create Table trending(song_rank int NOT NULL,song_id int, play_count int, constraint fk8 foreign key play_count references song(play_count) on delete cascade, constraint fk9 foreign key song_id references song(song_id) on delete cascade);*/
+/*XXXX Create Table trending(song_rank int NOT NULL,song_id int, play_count int, constraint fk8 foreign key play_count references song(play_count) on delete cascade, constraint fk9 foreign key song_id references song(song_id) on delete cascade);*/
