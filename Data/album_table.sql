@@ -13,3 +13,4 @@ insert into album(album_name, Year , number_of_songs, artist_id , langname) valu
 insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Side A", 2016, 6, 1006, "Hindi" );	
 insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Side B", 2017, 6, 1006, "Hindi" );
 insert into album(album_name, Year , number_of_songs, artist_id , langname) values("The Heist", 2012, 15, 1007, "English" );
+insert into album(album_name, Year , number_of_songs, artist_id , langname) values("Relaxer", 2017, 8, 1008, "English" );

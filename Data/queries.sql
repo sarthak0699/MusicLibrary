@@ -24,4 +24,15 @@ from artist natural join album natural join Song
 where song_name  = sgName;
 End;
 /
-/
+/*mySQL versions*/
+DELIMITER //
+CREATE PROCEDURE artistSearch (IN arName varchar(40))
+
+BEGIN
+	Select song_name,artist_name, album_name, Year 
+	from artist natural join album natural join Song
+	where artist_name = arNAme;
+END //
+DELIMITER ;
+
+CALL artistSearch('Radiohead');
