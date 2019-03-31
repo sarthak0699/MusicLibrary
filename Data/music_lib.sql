@@ -1,7 +1,7 @@
 Create Table artist(artist_name varchar(35),country varchar(35),artist_id int not null AUTO_INCREMENT, wiki_link varchar(30),primary key(artist_id));
 Alter table artist AUTO_INCREMENT = 1000;
 
-Create Table language(langname varchar(35),Genre_List varchar(100), primary key(langname));
+Create Table language(langname varchar(35),Genre_List varchar(50), primary key(langname));
 
 Create Table album(album_name varchar(35),Year int ,album_id int not null AUTO_INCREMENT,number_of_songs int not NULL, artist_id int,langname varchar (35) , primary key(album_id),constraint fk1 foreign key(artist_id) references artist(artist_id) on delete cascade, constraint fk2 foreign key (langname) references language(langname) on delete cascade, check (Year >= 1900 and Year <= 2019));
 Alter Table album AUTO_INCREMENT = 2000;

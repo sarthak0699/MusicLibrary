@@ -1,38 +1,59 @@
 /*Queries*/
 /*Queries searching artist*/
 /*Create Table artist(artist_name varchar(35),country varchar(35),artist_id int not null AUTO_INCREMENT, wiki_link varchar(30),primary key(artist_id));*/
-Create or Replace Procedure artistSearch (arName varchar)
+
+/* REAL SHIT*/
+Delimiter $$
+
+Create Procedure artistSearch (IN arName varchar(30))
 Begin
-Select song_name,artist_name, album_name, Year 
-from artist natural join album natural join Song
-where artist_name = arNAme;
-End;
-/
-/*Queries for Album Search*/
-Create or Replace Procedure albumSearch (alName varchar)
+	Select song_name,artist_name, album_name, Year, song_id
+	from artist 
+	where artist_name = arName;
+End
+$$
+call artistSearch('')
+
+Create Procedure albumSearch (IN alName varchar(30))
 Begin
-Select song_name, artist_name , album_name
-from artist natural join album natural join Song
+Select song_name,artist_name, album_name, Year, song_id
+from artist natural join album natural join song
 where album_name  = alName;
-End;
-/
-/*Query for song search*/
-Create or Replace Procedure songSearch (sgName varchar)
+End
+$$
+call albumSearch('')
+
+Create Procedure songSearch (IN sname varchar(30))
 Begin
-Select song_name, artist_name , album_name, Year
-from artist natural join album natural join Song
-where song_name  = sgName;
-End;
-/
-/*mySQL versions*/
-DELIMITER //
-CREATE PROCEDURE artistSearch (IN arName varchar(40))
+Select song_name,artist_name, album_name, Year, song_id, playcount #playcount to update play count
+from artist natural join album natural join song
+where song_name  = sname;
+End
+$$
+call songSearch('')
 
-BEGIN
-	Select song_name,artist_name, album_name, Year 
-	from artist natural join album natural join Song
-	where artist_name = arNAme;
-END //
-DELIMITER ;
+Create Procedure playHistory(IN sid int, IN usID int)
+Begin
+insert into user_history values (usid, sid);
+End
+$$
+call playHistory(,)
 
-CALL artistSearch('Radiohead');
+/* play button*/
+Create Procedure updatePlayCount (IN sid int)
+Begin
+update song
+set play_count := play_count + 1
+where song_id = sid;
+End
+$$
+call updatePlayCount(3001, 1)
+/*TRIGGER for play button on user_history*/
+Create TRIGGER playcount
+after update
+on 
+song
+for each row
+insert into user_history values (1 /*usid*/, new.song_id); ##usid is predefined
+$$
+
