@@ -9,7 +9,7 @@ Create Procedure artistSearch (IN arName varchar(30))
 Begin
 	Select song_name,artist_name, album_name, Year, song_id
 	from artist 
-	where artist_name = arName;
+	where artist_name like arName;
 End
 $$
 call artistSearch('')
@@ -18,7 +18,7 @@ Create Procedure albumSearch (IN alName varchar(30))
 Begin
 Select song_name,artist_name, album_name, Year, song_id
 from artist natural join album natural join song
-where album_name  = alName;
+where album_name  like alName;
 End
 $$
 call albumSearch('')
@@ -27,7 +27,7 @@ Create Procedure songSearch (IN sname varchar(30))
 Begin
 Select song_name,artist_name, album_name, Year, song_id, playcount #playcount to update play count
 from artist natural join album natural join song
-where song_name  = sname;
+where song_name  like sname;
 End
 $$
 call songSearch('')
