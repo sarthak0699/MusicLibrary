@@ -56,4 +56,23 @@ song
 for each row
 insert into user_history values (1 /*usid*/, new.song_id); ##usid is predefined
 $$
+/*Insert into playlist table*/
+Create Procedure SearchPlaylistID(IN plname varchar)
+Begin
+Select playlist_ID 
+from playlistname
+where playlist_name like plname;
+End
+$$
+/*ADD TO PLAYLIST BUTTON*/
+Create Procedure AddToPlaylist(IN sid int, IN usID int, IN selectedplaylistname varchar(20)) 
+Begin
+Declare plid int;
+Select playlist_ID into plid
+from playlistname
+where playlist_name like selectedplaylistname and user_id = usID;
 
+insert into playlist values(plid, sid);
+End
+$$
+call AddToPlaylist(3020, 1, 'Happy')$$
