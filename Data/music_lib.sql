@@ -16,7 +16,10 @@ Alter Table user1 AUTO_INCREMENT = 4000;
 
 Create Table favourites(user_id int not null, song_id int, constraint fk6 foreign key (song_id) references song(song_id) on delete cascade, constraint fk7 foreign key (user_id) references user1(user_id) on delete cascade);
 
-Create Table playlist(playlist_ID int,user_id int , song_id int , primary key (playlist_ID, user_id), constraint fk10 foreign key (song_id) references song(song_id) on delete cascade, constraint fk11 foreign key (user_id) references user1(user_id) on delete cascade);
+Create Table playlistname (playlist_ID int not null AUTO_INCREMENT, playlist_name varchar(30),user_id int, primary key (playlist_ID, user_id),constraint fk11 foreign key (user_id) references user1(user_id) on delete cascade );
+Alter Table playlistname AUTO_INCREMENT = 5000;
+
+Create Table playlist(playlist_ID int , song_id int , primary key (playlist_ID, song_id), constraint fk10 foreign key (song_id) references song(song_id) on delete cascade, constraint fk14 foreign key (playlist_ID) references playlistname(playlist_ID));
 
 Create Table user_history(user_id int, song_id int ,constraint fk12 foreign key (song_id) references song(song_id) on delete cascade, constraint fk13 foreign key (user_id) references user1(user_id) on delete cascade);
 
