@@ -54,7 +54,7 @@ after update
 on 
 song
 for each row
-insert into user_history values (1 /*usid*/, new.song_id); ##usid is predefined
+insert into user_history values (new.song_id); ##usid is predefined
 $$
 /*Insert into playlist table*/
 Create Procedure SearchPlaylistID(IN plname varchar)
