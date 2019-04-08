@@ -76,3 +76,10 @@ insert into playlist values(plid, sid);
 End
 $$
 call AddToPlaylist(3020, 1, 'Happy')$$
+/*Recommendation*/
+Create Procedure Recommendation()
+Begin
+Select song_name, count(play_count)
+from song
+group by song_name
+order by count(play_count) desc limit 10;
