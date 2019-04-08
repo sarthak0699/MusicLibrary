@@ -79,7 +79,118 @@ call AddToPlaylist(3020, 1, 'Happy')$$
 /*Recommendation*/
 Create Procedure Recommendation()
 Begin
-Select song_name, count(play_count)
-from song
-group by song_name
-order by count(play_count) desc limit 10;
+
+Create view MostPlayedGenres as
+(
+	Select distinct Genre, count(play_count)
+	from song natural join playlist natural join playlistname
+	where user_id = 1
+	group by song_name, Genre
+	order by count(play_count) desc limit 3
+);
+Select distinct Genre, count(play_count)
+from song natural join playlist natural join playlistname
+where user_id = 1
+group by song_name, Genre
+order by count(play_count) desc limit 3
+
+
+CREATE PROCEDURE cursorRecom(IN usid varchar(20))
+BEGIN
+DECLARE done INT DEFAULT FALSE;
+DECLARE a CHAR(16);
+/*
+DECLARE var1 varchar(20);
+Select Genre #into var1
+from
+(
+Select distinct Genre, count(play_count)
+from song natural join playlist natural join playlistname
+where user_id = 1 #usid
+group by song_name, Genre
+order by count(play_count) desc limit 1
+) as test;
+
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+OPEN cur1;
+
+read_loop: LOOP
+FETCH cur1 INTO a;
+
+IF done THEN
+  LEAVE read_loop;
+END IF;
+insert into recommendation values ()
+END IF;
+END LOOP;
+
+CLOSE cur1;
+CLOSE cur2;
+END;
+*/
+CREATE PROCEDURE Recommendation(IN usid varchar(20))
+BEGIN
+DECLARE done INT DEFAULT FALSE;
+DECLARE a INT;
+DECLARE var1 CHAR(16);
+Select Genre into var1
+from
+(
+Select distinct Genre, count(play_count)
+from song natural join playlist natural join playlistname
+where user_id = 1 /*usid*/
+group by song_name, Genre
+order by count(play_count) desc limit 1
+) as test;
+
+DECLARE cur1 CURSOR FOR SELECT song_id FROM song where Genre like var1;
+DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
+
+OPEN cur1;
+
+read_loop: LOOP
+FETCH cur1 INTO a
+IF done THEN
+LEAVE read_loop;
+END IF;
+INSERT INTO recommendation VALUES (a);
+END LOOP;
+
+CLOSE cur1;
+END;
+
+
+
+
+
+
+
+
+Create Procedure Recommendation()
+begin
+DECLARE var1 varchar(20);
+Select Genre into var1
+from
+(
+Select distinct Genre, count(play_count)
+from song natural join playlist natural join playlistname
+where user_id = 1 /*usid*/
+group by song_name, Genre
+order by count(play_count) desc limit 1
+) as test;
+
+end;
+
+
+
+
+
+
+
+
+
+
+
+
+
