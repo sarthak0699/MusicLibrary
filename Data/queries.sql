@@ -77,120 +77,34 @@ End
 $$
 call AddToPlaylist(3020, 1, 'Happy')$$
 /*Recommendation*/
-Create Procedure Recommendation()
-Begin
+Create Table recommendation(song_id int, constraint fk15 foreign key (song_id) references song(song_id) on delete cascade);
 
-Create view MostPlayedGenres as
-(
-	Select distinct Genre, count(play_count)
-	from song natural join playlist natural join playlistname
-	where user_id = 1
-	group by song_name, Genre
-	order by count(play_count) desc limit 3
-);
-Select distinct Genre, count(play_count)
-from song natural join playlist natural join playlistname
-where user_id = 1
-group by song_name, Genre
-order by count(play_count) desc limit 3
-
-
-CREATE PROCEDURE cursorRecom(IN usid varchar(20))
-BEGIN
-DECLARE done INT DEFAULT FALSE;
-DECLARE a CHAR(16);
-/*
-DECLARE var1 varchar(20);
-Select Genre #into var1
-from
-(
-Select distinct Genre, count(play_count)
-from song natural join playlist natural join playlistname
-where user_id = 1 #usid
-group by song_name, Genre
-order by count(play_count) desc limit 1
-) as test;
-
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-OPEN cur1;
-
-read_loop: LOOP
-FETCH cur1 INTO a;
-
-IF done THEN
-  LEAVE read_loop;
-END IF;
-insert into recommendation values ()
-END IF;
-END LOOP;
-
-CLOSE cur1;
-CLOSE cur2;
-END;
-*/
-CREATE PROCEDURE Recommendation(IN usid varchar(20))
-BEGIN
-DECLARE done INT DEFAULT FALSE;
-DECLARE a INT;
-DECLARE var1 CHAR(16);
-Select Genre into var1
-from
-(
-Select distinct Genre, count(play_count)
-from song natural join playlist natural join playlistname
-where user_id = 1 /*usid*/
-group by song_name, Genre
-order by count(play_count) desc limit 1
-) as test;
-
-DECLARE cur1 CURSOR FOR SELECT song_id FROM song where Genre like var1;
-DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = TRUE;
-
-OPEN cur1;
-
-read_loop: LOOP
-FETCH cur1 INTO a
-IF done THEN
-LEAVE read_loop;
-END IF;
-INSERT INTO recommendation VALUES (a);
-END LOOP;
-
-CLOSE cur1;
-END;
-
-
-
-
-
-
-
-
-Create Procedure Recommendation()
+Create Procedure Recommendation(IN usid int)
 begin
-DECLARE var1 varchar(20);
-Select Genre into var1
-from
+DECLARE done INT DEFAULT FALSE;
+DECLARE a int;
+DECLARE var1 int;
+DECLARE cur1 CURSOR FOR 
+Select song_id
+from song 
+where genre in
 (
-Select distinct Genre, count(play_count)
+Select distinct Genre#, count(play_count)
 from song natural join playlist natural join playlistname
-where user_id = 1 /*usid*/
-group by song_name, Genre
-order by count(play_count) desc limit 1
-) as test;
+where user_id = usid
+-- group by song_name, Genre
+order by play_count desc 
+) limit 20;
+delete from recommendation;
+open cur1;
+
+fetch cur1 into a;
+
+start_loop: loop
+fetch cur1 into var1;
+insert into recommendation values (var1);        
+end loop;
+
+close cur1;
 
 end;
-
-
-
-
-
-
-
-
-
-
-
-
-
