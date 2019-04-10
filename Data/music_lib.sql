@@ -22,6 +22,7 @@ Alter Table playlistname AUTO_INCREMENT = 5000;
 Create Table playlist(playlist_ID int , song_id int , primary key (playlist_ID, song_id), constraint fk10 foreign key (song_id) references song(song_id) on delete cascade, constraint fk14 foreign key (playlist_ID) references playlistname(playlist_ID));
 
 Create Table user_history(song_id int ,constraint fk12 foreign key (song_id) references song(song_id) on delete cascade);
+Create Table recommendation(song_id int, constraint fk15 foreign key (song_id) references song(song_id) on delete cascade);
 
 
 /*Create Table user_history(user_id int, song_id int ,constraint fk12 foreign key (song_id) references song(song_id) on delete cascade, constraint fk13 foreign key (user_id) references user1(user_id) on delete cascade);

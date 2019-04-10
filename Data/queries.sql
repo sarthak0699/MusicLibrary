@@ -106,5 +106,6 @@ insert into recommendation values (var1);
 end loop;
 
 close cur1;
+Select * from song natural join recommendation;
 
 end;
